@@ -16,8 +16,17 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf import settings
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('billing/', include('billing.urls', namespace='billing'))
+    path('billing/', include('billing.urls', namespace='billing')),
 ]
+
+if settings.DEBUG:
+    urlpatterns = [
+        path('admin/', admin.site.urls),
+    ] + urlpatterns
+if not settings.DEBUG:
+    urlpatterns = [
+        path('randomadmin@88/', admin.site.urls),
+    ] + urlpatterns

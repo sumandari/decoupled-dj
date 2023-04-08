@@ -86,7 +86,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _com
   \*********************************************************************************************************************************************************************************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony default export */ __webpack_exports__[\"default\"] = ({\n  name: \"InvoiceCreate\",\n  data: function () {\n    return {\n      users: [{\n        id: 1,\n        name: \"test1\",\n        email: \"test1@abc.io\"\n      }, {\n        id: 2,\n        name: \"test2\",\n        email: \"test2@def.io\"\n      }]\n    };\n  },\n  methods: {\n    handleSubmit: function (event) {\n      // eslint-disable-next-line no-unused-vars\n      const formData = new FormData(event.target);\n      const data = Object.fromEntries(formData);\n      data.items = [{\n        quantity: formData.get(\"quantity\"),\n        description: formData.get(\"description\"),\n        price: formData.get(\"price\"),\n        taxed: Boolean(formData.get(\"taxed\"))\n      }];\n      fetch(\"/billing/api/invoices/\", {\n        method: \"POST\",\n        headers: {\n          \"Content-Type\": \"application/json\"\n        },\n        body: JSON.stringify(data)\n      }).then(response => {\n        if (!response.ok) throw Error(response.statusText);\n        return response.json();\n      }).then(json => {\n        console.log(json);\n      }).catch(err => console.log(err));\n    }\n  },\n  mounted() {\n    fetch(\"/billing/api/clients\").then(response => {\n      if (!response.ok) throw Error(response.statusText);\n      return response.json();\n    }).then(json => {\n      this.users = json;\n    });\n  }\n});\n\n//# sourceURL=webpack://vue_spa/./src/components/InvoiceCreate.vue?./node_modules/babel-loader/lib/index.js??clonedRuleSet-40.use%5B0%5D!./node_modules/@vue/vue-loader-v15/lib/index.js??vue-loader-options");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony default export */ __webpack_exports__[\"default\"] = ({\n  name: \"InvoiceCreate\",\n  data: function () {\n    return {\n      users: [{\n        id: 1,\n        name: \"test1\",\n        email: \"test1@abc.io\"\n      }, {\n        id: 2,\n        name: \"test2\",\n        email: \"test2@def.io\"\n      }]\n    };\n  },\n  methods: {\n    handleSubmit: function (event) {\n      // eslint-disable-next-line no-unused-vars\n      const formData = new FormData(event.target);\n      const data = Object.fromEntries(formData);\n      data.items = [{\n        quantity: formData.get(\"quantity\"),\n        description: formData.get(\"description\"),\n        price: formData.get(\"price\"),\n        taxed: Boolean(formData.get(\"taxed\"))\n      }];\n      const csrfToken = this.$cookies.get(\"csrftoken\");\n      fetch(\"/billing/api/invoices/\", {\n        method: \"POST\",\n        headers: {\n          \"Content-Type\": \"application/json\",\n          \"X-CSRFToken\": csrfToken\n        },\n        body: JSON.stringify(data)\n      }).then(response => {\n        if (!response.ok) throw Error(response.statusText);\n        return response.json();\n      }).then(json => {\n        console.log(json);\n      }).catch(err => console.log(err));\n    }\n  },\n  mounted() {\n    fetch(\"/billing/api/clients\").then(response => {\n      if (!response.ok) throw Error(response.statusText);\n      return response.json();\n    }).then(json => {\n      this.users = json;\n    });\n  }\n});\n\n//# sourceURL=webpack://vue_spa/./src/components/InvoiceCreate.vue?./node_modules/babel-loader/lib/index.js??clonedRuleSet-40.use%5B0%5D!./node_modules/@vue/vue-loader-v15/lib/index.js??vue-loader-options");
 
 /***/ }),
 
@@ -116,7 +116,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
   \*********************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue */ \"./node_modules/vue/dist/vue.runtime.esm.js\");\n/* harmony import */ var _App_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./App.vue */ \"./src/App.vue\");\n\n\nvue__WEBPACK_IMPORTED_MODULE_1__[\"default\"].config.productionTip = false;\nnew vue__WEBPACK_IMPORTED_MODULE_1__[\"default\"]({\n  render: h => h(_App_vue__WEBPACK_IMPORTED_MODULE_0__[\"default\"])\n}).$mount('#app');\n\n//# sourceURL=webpack://vue_spa/./src/main.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue */ \"./node_modules/vue/dist/vue.runtime.esm.js\");\n/* harmony import */ var vue_cookies__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-cookies */ \"./node_modules/vue-cookies/vue-cookies.js\");\n/* harmony import */ var vue_cookies__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue_cookies__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _App_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./App.vue */ \"./src/App.vue\");\n\n\n\nvue__WEBPACK_IMPORTED_MODULE_2__[\"default\"].config.productionTip = false;\nvue__WEBPACK_IMPORTED_MODULE_2__[\"default\"].use((vue_cookies__WEBPACK_IMPORTED_MODULE_0___default()));\nnew vue__WEBPACK_IMPORTED_MODULE_2__[\"default\"]({\n  render: h => h(_App_vue__WEBPACK_IMPORTED_MODULE_1__[\"default\"])\n}).$mount('#app');\n\n//# sourceURL=webpack://vue_spa/./src/main.js?");
 
 /***/ })
 
@@ -181,6 +181,18 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var vue_
 /******/ 				}
 /******/ 			}
 /******/ 			return result;
+/******/ 		};
+/******/ 	}();
+/******/ 	
+/******/ 	/* webpack/runtime/compat get default export */
+/******/ 	!function() {
+/******/ 		// getDefaultExport function for compatibility with non-harmony modules
+/******/ 		__webpack_require__.n = function(module) {
+/******/ 			var getter = module && module.__esModule ?
+/******/ 				function() { return module['default']; } :
+/******/ 				function() { return module; };
+/******/ 			__webpack_require__.d(getter, { a: getter });
+/******/ 			return getter;
 /******/ 		};
 /******/ 	}();
 /******/ 	
